@@ -8,8 +8,11 @@ class GameButton extends Component {
   }
 
   handleClick() {
-    //this.makeSound()
-    //this.highlightColor()
+    this.highLightColor()
+  }
+
+  hightLightColor(){
+
   }
 
   render() {

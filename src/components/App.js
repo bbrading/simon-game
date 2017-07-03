@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import GameButton from './GameButton'
+import GameButton from './GameButton';
+import StartButton from './StartButton';
+import StrictModeButton from './StrictModeButton'
 import '../App.css';
 
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {simonSequence: [], userSequence: [], counter: 1, }
-  }
-
-  simonSoundGreen() {
-  //  <embed src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3" autoplay="false" loop="false"></embed>
+    this.state = {simonSequence: [], userSequence: [], counter: 1,}
   }
 
   render() {
@@ -23,6 +21,13 @@ class App extends Component {
         <div>
           <GameButton className="yellowbtn"/>
           <GameButton className="bluebtn"/>
+        </div>
+        <div>
+          <p className="counter">{this.state.counter}</p>
+        </div>
+        <div>
+          <StartButton className="startbtn"/>
+          <StrictModeButton className="strictbtn"/>
         </div>
       </div>
     );

@@ -39,3 +39,25 @@
   width: 200px;
   height: 200px;
 }
+
+.startbtn {
+  background-color: white;
+  width: 100px;
+  height: 50px;
+  margin-top: 50px;
+  font-size: 24px;
+}
+
+.strictbtn {
+  background-color: red;
+  width: 100px;
+  height: 50px;
+  margin-top: 50px;
+  margin-left: 25px;
+  font-size: 24px;
+}
+.counter {
+  color: white;
+  margin-top: 50px;
+  font-size: 24px;
+}
