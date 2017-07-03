@@ -7,17 +7,23 @@ class GameButton extends Component {
     super(props)
   }
 
-  handleClick() {
-    this.highLightColor()
+  highLightColor(e){
+    e.target.className = this.props.highLightColor
   }
 
-  hightLightColor(){
-
+  handleClick(e) {
+    this.highLightColor(e)
   }
+
+
 
   render() {
     return (
-      <button className={this.props.className} onClick={this.handleClick}> </button>
+      <button
+      className={this.props.className}
+      onClick={this.handleClick.bind(this)}
+      >
+      </button>
     )
   }
 

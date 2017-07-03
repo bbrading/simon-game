@@ -15,8 +15,26 @@
   margin-top: 100px;
 }
 
+.clickedgreenbtn {
+  background-color: #00FF00;
+  border-top-left-radius: 100%;
+  border-bottom-right-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin-top: 100px;
+}
+
 .redbtn {
   background-color: #B22222;
+  border-top-right-radius: 100%;
+  border-bottom-left-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin-top: 100px;
+}
+
+.clickedredbtn {
+  background-color: #FF0000;
   border-top-right-radius: 100%;
   border-bottom-left-radius: 50%;
   width: 200px;
@@ -32,8 +50,24 @@
   height: 200px;
 }
 
+.clickedyellowbtn {
+  background-color: #FFFF00;
+  border-bottom-left-radius: 100%;
+  border-top-right-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
 .bluebtn {
   background-color: #000080;
+  border-bottom-right-radius: 100%;
+  border-top-left-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.clickedbluebtn {
+  background-color: #4169E1;
   border-bottom-right-radius: 100%;
   border-top-left-radius: 50%;
   width: 200px;

@@ -8,19 +8,25 @@ import '../App.css';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {simonSequence: [], userSequence: [], counter: 1,}
+    this.state = {
+      simonSequence: [],
+      userSequence: [],
+      counter: 1,
+    };
   }
+
+
 
   render() {
     return (
       <div className="App">
         <div>
-          <GameButton className= "greenbtn" defaultColor="green" highlightColor="lime-green"/>
-          <GameButton className="redbtn"/>
+          <GameButton className= "greenbtn" defaultColor="greenbtn" highLightColor="clickedgreenbtn"/>
+          <GameButton className="redbtn" defaultColor="redbtn" highLightColor="clickedredbtn"/>
         </div>
         <div>
-          <GameButton className="yellowbtn"/>
-          <GameButton className="bluebtn"/>
+          <GameButton className="yellowbtn" defaultColor="yellowbtn" highLightColor="clickedyellowbtn"/>
+          <GameButton className="bluebtn" defaultColor="bluebtn" highLightColor="clickedbluebtn"/>
         </div>
         <div>
           <p className="counter">{this.state.counter}</p>
