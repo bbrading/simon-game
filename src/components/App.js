@@ -15,18 +15,16 @@ class App extends Component {
     };
   }
 
-
-
   render() {
     return (
       <div className="App">
         <div>
-          <GameButton className= "greenbtn" defaultColor="greenbtn" highLightColor="clickedgreenbtn"/>
-          <GameButton className="redbtn" defaultColor="redbtn" highLightColor="clickedredbtn"/>
+          <GameButton defaultColor="greenbtn" clickedColor="clickedgreenbtn"/>
+          <GameButton defaultColor="redbtn" clickedColor="clickedredbtn"/>
         </div>
         <div>
-          <GameButton className="yellowbtn" defaultColor="yellowbtn" highLightColor="clickedyellowbtn"/>
-          <GameButton className="bluebtn" defaultColor="bluebtn" highLightColor="clickedbluebtn"/>
+          <GameButton defaultColor="yellowbtn" clickedColor="clickedyellowbtn"/>
+          <GameButton defaultColor="bluebtn" clickedColor="clickedbluebtn"/>
         </div>
         <div>
           <p className="counter">{this.state.counter}</p>

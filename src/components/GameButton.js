@@ -5,22 +5,28 @@ import '../App.css';
 class GameButton extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      currentClass: this.props.defaultColor,
+    }
   }
 
-  highLightColor(e){
-    e.target.className = this.props.highLightColor
+  highLightColor(){
+    this.setState({currentClass: this.props.clickedColor})
   }
 
-  handleClick(e) {
-    this.highLightColor(e)
+  defaultColor(){
+    this.setState({currentClass: this.props.defaultColor})
   }
 
-
+  handleClick() {
+    this.highLightColor()
+    setTimeout(this.defaultColor.bind(this), 1000)
+  }
 
   render() {
     return (
       <button
-      className={this.props.className}
+      className={this.state.currentClass}
       onClick={this.handleClick.bind(this)}
       >
       </button>
