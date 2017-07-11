@@ -7,10 +7,13 @@ class StartButton extends Component {
     super(props)
   }
 
+startSequence() {
+  
+}
 
   render () {
     return (
-      <button className={this.props.className}> START </button>
+      <button className={this.props.className} onClick={this.startSequence.bind(this)}> START </button>
     )
   }
 
