@@ -12,6 +12,7 @@ class Game extends Component {
       simonSequence: [],
       userSequence: [],
       counter: 0,
+      round: 0,
       greenButtonClass: "greenbtn",
       redButtonClass: "redbtn",
       yellowButtonClass: "yellowbtn",
@@ -43,9 +44,26 @@ class Game extends Component {
 
   }
 
-  checkMove(){
-    if(this.state.simonSequence === this.state.userSequence){
-      this.counterIncrease()
+  checkMove(buttonClass){
+    this.state.userSequence.push(buttonClass)
+    this.setState({userSequence: this.state.userSequence})
+    if (this.state.round === this.state.counter){
+      if(this.state.simonSequence[this.state.round] === this.state.userSequence[this.state.round]){
+        this.counterIncrease()
+        this.setState({userSequence: []})
+        setTimeout(this.playSequence.bind(this), 2000)
+        }
+      else {
+        this.state.userSequence.pop()
+        this.setState({userSequence: this.state.userSequence})
+        alert("Try Again")
+        setTimeout(this.replaySequence.bind(this), 2000)
+        }
+    }
+    else {
+      if(this.state.simonSequence[this.state.round] === this.state.userSequence[this.state.round]){
+      this.setState({round: this.state.round + 1 });
+      }
     }
   }
 
@@ -59,14 +77,37 @@ class Game extends Component {
     return Math.floor(Math.random() * (min - max)) + max
   }
 
-  startSequence() {
-    var gameButtonArray = [this.state.greenButton, this.state.redButton, this.state.yellowButton, this.state.blueButton];
+  createSimonSequence(){
+    var gameButtonArray = ["greenbtn", "redbtn", "yellowbtn", "bluebtn"];
     var n = this.getRandomButton(0,3)
-    this.setState({counter: 0})
+    this.state.simonSequence.push(gameButtonArray[n])
+    this.setState({simonSequence: this.state.simonSequence});
+  }
+
+  startSequence() {
     this.setState({simonSequence: []})
-    debugger
-    this.setState({simonSequence: this.state.simonSequence.push(gameButtonArray[n])});
-    this.state.greenButton.toggleColors
+    this.setState({counter: 0})
+    this.setState({round:0})
+    this.createSimonSequence()
+    this.highLightColor(this.state.simonSequence[0])
+  }
+
+  displaySequence(index) {
+    var _this = this
+    if(this.state.simonSequence.length > index){
+      setTimeout(function() {
+        _this.highLightColor(_this.state.simonSequence[index])
+        _this.displaySequence(++index)}, 2000)
+      }
+    }
+
+  playSequence() {
+    this.createSimonSequence()
+    setTimeout(this.displaySequence.bind(this)(0), 2000)
+  }
+
+  replaySequence() {
+    setTimeout(this.displaySequence.bind(this)(0), 2000)
   }
 
   render() {

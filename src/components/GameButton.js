@@ -11,6 +11,7 @@ class GameButton extends Component {
 
   handleClick(){
     this.props.highLightColor(this.props.currentClass)
+    this.props.checkMove(this.props.currentClass)
   }
 
   render() {
