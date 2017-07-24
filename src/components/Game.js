@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import GameButton from './GameButton';
-//import StartButton from './StartButton';
-import StrictModeButton from './StrictModeButton'
 import '../App.css';
 
 
@@ -17,6 +15,7 @@ class Game extends Component {
       redButtonClass: "redbtn",
       yellowButtonClass: "yellowbtn",
       blueButtonClass: "bluebtn",
+      tryAgain: "tryAgainHidden",
     };
     this.highLightColor = this.highLightColor.bind(this);
   }
@@ -54,15 +53,19 @@ class Game extends Component {
         setTimeout(this.playSequence.bind(this), 2000)
         }
       else {
-        this.state.userSequence.pop()
-        this.setState({userSequence: this.state.userSequence})
-        alert("Try Again")
+        this.setState({tryAgain: "tryAgainVisible"})
+        this.setState({userSequence: []})
         setTimeout(this.replaySequence.bind(this), 2000)
         }
     }
     else {
       if(this.state.simonSequence[this.state.round] === this.state.userSequence[this.state.round]){
-      this.setState({round: this.state.round + 1 });
+          this.setState({round: this.state.round + 1 })
+      }
+      else {
+        this.setState({tryAgain: "tryAgainVisible"})
+        this.setState({userSequence: []})
+        setTimeout(this.replaySequence.bind(this), 2000)
       }
     }
   }
@@ -94,6 +97,7 @@ class Game extends Component {
 
   displaySequence(index) {
     var _this = this
+    this.setState({round: 0})
     if(this.state.simonSequence.length > index){
       setTimeout(function() {
         _this.highLightColor(_this.state.simonSequence[index])
@@ -107,12 +111,16 @@ class Game extends Component {
   }
 
   replaySequence() {
+    this.setState({tryAgain: "tryAgainHidden"})
     setTimeout(this.displaySequence.bind(this)(0), 2000)
   }
 
   render() {
     return (
       <div className="App">
+        <div>
+          <p className={this.state.tryAgain}> TRY AGAIN </p>
+        </div>
         <div>
           <GameButton
             currentClass={this.state.greenButtonClass}
@@ -138,7 +146,6 @@ class Game extends Component {
         </div>
         <div>
           <button className="startbtn" onClick={this.startSequence.bind(this)}> Start </button>
-          <StrictModeButton className="strictbtn"/>
         </div>
       </div>
     );
