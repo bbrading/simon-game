@@ -18,6 +18,7 @@ class Game extends Component {
       tryAgain: "tryAgainHidden",
     };
     this.highLightColor = this.highLightColor.bind(this);
+    this.checkMove = this.checkMove.bind(this);
   }
 
   highLightColor(buttonClass){
@@ -40,38 +41,51 @@ class Game extends Component {
       this.setState({blueButtonClass: "clickedbluebtn"})
       setTimeout(function(){this.setState({blueButtonClass: "bluebtn"})}.bind(this), 1000)
     }
-
   }
 
-  checkMove(buttonClass){
+  checkMove(buttonClass) {
+    this.updateUserSequence(buttonClass)
+      if (this.finalMove() && this.isCorrectMove()){
+        this.finishRound()
+      }
+      else if (this.isCorrectMove()){
+        this.nextRound()
+      }
+      else {
+        this.handleWrongMove()
+      }
+  }
+
+  updateUserSequence(buttonClass) {
     this.state.userSequence.push(buttonClass)
     this.setState({userSequence: this.state.userSequence})
-    if (this.state.round === this.state.counter){
-      if(this.state.simonSequence[this.state.round] === this.state.userSequence[this.state.round]){
-        this.counterIncrease()
-        this.setState({userSequence: []})
-        setTimeout(this.playSequence.bind(this), 2000)
-        }
-      else {
-        this.setState({tryAgain: "tryAgainVisible"})
-        this.setState({userSequence: []})
-        setTimeout(this.replaySequence.bind(this), 2000)
-        }
-    }
-    else {
-      if(this.state.simonSequence[this.state.round] === this.state.userSequence[this.state.round]){
-          this.setState({round: this.state.round + 1 })
-      }
-      else {
-        this.setState({tryAgain: "tryAgainVisible"})
-        this.setState({userSequence: []})
-        setTimeout(this.replaySequence.bind(this), 2000)
-      }
-    }
   }
 
-  counterIncrease() {
-    this.setState({counter: this.state.counter + 1});
+  isCorrectMove() {
+    return this.state.simonSequence[this.state.round] === this.state.userSequence[this.state.round]
+  }
+
+  finalMove() {
+    return this.state.round === this.state.counter
+  }
+
+  finishRound() {
+    this.increaseCounter()
+    this.setState({userSequence: []})
+    setTimeout(this.playSequence.bind(this), 2000)
+  }
+
+  increaseCounter() {
+    this.setState({counter: this.state.counter + 1})
+  }
+
+  nextRound() {
+    this.setState({round: this.state.round + 1 })
+  }
+
+  handleWrongMove() {
+    this.setState({tryAgain: "tryAgainVisible", userSequence: []})
+    setTimeout(this.replaySequence.bind(this), 2000)
   }
 
   getRandomButton(min, max) {
@@ -84,20 +98,17 @@ class Game extends Component {
     var gameButtonArray = ["greenbtn", "redbtn", "yellowbtn", "bluebtn"];
     var n = this.getRandomButton(0,3)
     this.state.simonSequence.push(gameButtonArray[n])
-    this.setState({simonSequence: this.state.simonSequence});
+    this.setState({simonSequence: this.state.simonSequence, round: 0});
   }
 
   startSequence() {
-    this.setState({simonSequence: []})
-    this.setState({counter: 0})
-    this.setState({round:0})
+    this.setState({simonSequence: [], counter: 0, round: 0})
     this.createSimonSequence()
     this.highLightColor(this.state.simonSequence[0])
   }
 
   displaySequence(index) {
     var _this = this
-    this.setState({round: 0})
     if(this.state.simonSequence.length > index){
       setTimeout(function() {
         _this.highLightColor(_this.state.simonSequence[index])
@@ -111,7 +122,7 @@ class Game extends Component {
   }
 
   replaySequence() {
-    this.setState({tryAgain: "tryAgainHidden"})
+    this.setState({tryAgain: "tryAgainHidden", round: 0})
     setTimeout(this.displaySequence.bind(this)(0), 2000)
   }
 
@@ -125,21 +136,21 @@ class Game extends Component {
           <GameButton
             currentClass={this.state.greenButtonClass}
             highLightColor={this.highLightColor}
-            checkMove={this.checkMove.bind(this)}/>
+            checkMove={this.checkMove}/>
           <GameButton
             currentClass={this.state.redButtonClass}
             highLightColor={this.highLightColor}
-            checkMove={this.checkMove.bind(this)}/>
+            checkMove={this.checkMove}/>
         </div>
         <div>
           <GameButton
             currentClass={this.state.yellowButtonClass}
             highLightColor={this.highLightColor}
-            checkMove={this.checkMove.bind(this)}/>
+            checkMove={this.checkMove}/>
           <GameButton
             currentClass={this.state.blueButtonClass}
             highLightColor={this.highLightColor}
-            checkMove={this.checkMove.bind(this)}/>
+            checkMove={this.checkMove}/>
         </div>
         <div>
           <p className="counter">{this.state.counter}</p>

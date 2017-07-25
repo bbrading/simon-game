@@ -4,9 +4,7 @@ import '../App.css';
 class GameButton extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-
-    }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick(){
@@ -18,7 +16,7 @@ class GameButton extends Component {
     return (
       <button
       className={this.props.currentClass}
-      onClick={this.handleClick.bind(this)}
+      onClick={this.handleClick}
       >
       </button>
     )
